@@ -1,0 +1,6 @@
+#git ignore file for Creative-Ed-Options.com repo
+
+.htaccess
+*.tar.gz
+*.gz
+*.zip

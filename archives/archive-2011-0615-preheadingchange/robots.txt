@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /test/*
+Disallow: /includes/
+
+Sitemap: http://www.creative-ed-options.com/sitemap.xml
