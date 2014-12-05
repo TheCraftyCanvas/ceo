@@ -19,33 +19,47 @@
 <meta name="keywords" content="finding picking identifying selecting choosing schools, colleges, educational programs, educational activities educational summer programs, educational camps, atlernative schools, non-traditional schools, wilderness programs, social skill-building, boarding schools, therapeutic programs, teenagers troubled youth children kids young adults, special needs students, learning disabilities disorders, mental retardation, low iq, pervasive developmental disorders PDD, NVLD nonverbal learning disorders, NLD nonlearning disorders, mood disorders, social disorders, psychological disorders, autism, general anxiety disorders, aspergers syndrome, down syndrome, drug problems, ADD attention deficit disorder, ADHD hyper attention deficit disorder, aggression issues, social skills issues, behavioral problems, cognitive disabilities, executive function issues, executive function challenges, learning problems, ODD oppositional defiant disorder, PDD NOS, psychotic episodes, RAD reactive attachment disorder, schizophrenia, bipolar disorder, self-injury tendencies, thought disorders, substance abuse problems, alcohol addictions, gaming addictions, truancy problems, crisis intervention, custom IEP individualized education programs" />
 
 <?php
-if(array_key_exists('first_name',$_POST))
-{
+require_once('includes/recaptcha-php-1.11/recaptchalib.php');
+$privatekey = "6LemxvYSAAAAAHDRRu3vkPxY9EqjpZ6y54cD1f11";
+  $resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
 
-  $first_name = $_POST['first_name'];
-  $email = $_POST['email'];
-  $inquiry = $_POST['inquiry'];
+if (!$resp->is_valid) {
+  // What happens when the CAPTCHA was entered incorrectly
+  die ("The reCAPTCHA wasn't entered correctly. Go back and try it again." .
+       "(reCAPTCHA said: " . $resp->error . ")");
+} else {
 
-  // Contact subject
-  $subject ="$first_name has submitted an inquiry";
-  // Details
-  $message = "CEO Website inquiry:\n" . $inquiry . "\n\n";
-  $message = $message . "Submitted by: " . $first_name . "\n";
-  $message = $message . "E-mail: " . $email . "\n";
-  $message .= "If replying by email, be sure to change the email address that automatically populates, since this message was sent from your web site hosting service, and not the actual contact's email.";
-  // Mail of sender
-  $mail_from="$email";
-  // From
-  $header="from: CEO Web Visitor [inquiries@creative-ed-options.com]";
+  if(array_key_exists('first_name',$_POST))
+  {
 
-  // Enter your email address
-//  $to ='ansonwhan@gmail.com';
-    $to ='nancy@creative-ed-options.com';
+    $first_name = $_POST['first_name'];
+    $email = $_POST['email'];
+    $inquiry = $_POST['inquiry'];
 
-  $timestamp = time(); //establish a timestamp for this record
-  ini_set('sendmail_from', 'inquiries@creative-ed-options.com');
+    // Contact subject
+    $subject ="$first_name has submitted an inquiry";
+    // Details
+    $message = "CEO Website inquiry:\n" . $inquiry . "\n\n";
+    $message = $message . "Submitted by: " . $first_name . "\n";
+    $message = $message . "E-mail: " . $email . "\n";
+    $message .= "If replying by email, be sure to change the email address that automatically populates, since this message was sent from your web site hosting service, and not the actual contact's email.";
+    // Mail of sender
+    $mail_from="$email";
+    // From
+    $header="from: CEO Web Visitor [inquiries@creative-ed-options.com]";
 
-  $send_contact=mail($to,$subject,$message,$header);
+    // Enter your email address
+  //  $to ='ansonwhan@gmail.com';
+      $to ='nancy@creative-ed-options.com';
+
+    $timestamp = time(); //establish a timestamp for this record
+    ini_set('sendmail_from', 'inquiries@creative-ed-options.com');
+
+    $send_contact=mail($to,$subject,$message,$header);
+  }
 }
 ?>
 

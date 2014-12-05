@@ -88,13 +88,22 @@
 </td></tr>
 <tr style="border-top:1px solid #000000;"><td align="center" colspan="2">
 <div style="width:100%;padding:0px;float:left;">
-<div id="alt_captcha_div">
+<?php
+          require_once('includes/recaptcha-php-1.11/recaptchalib.php');
+          $publickey = "6LemxvYSAAAAAI0FZqppuWtKsQWxrrNDk6mF4u6x";
+          echo recaptcha_get_html($publickey);
+?>
+<?php
+/*
+<!--<div id="alt_captcha_div">
 
 	<!-- Begin of captcha -->
 	<div class="ajax-fc-container">You must enable javascript to see captcha here!</div>
 	<!-- End of captcha -->
 
 </div><!-- end of alt_captcha_div-->
+*/
+?>
 </div>
 </td></tr>
 <tr style="border-top:1px solid #000000;"><td align="center" colspan="2">
